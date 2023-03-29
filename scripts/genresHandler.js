@@ -41,7 +41,7 @@ buttonForAdding.addEventListener("click", function () {
         genresList.push(valueTextInput);
         createGenresItems();
         counter = true;
-        console.log(genresList);
+        //console.log(genresList);
     }
 
 });
