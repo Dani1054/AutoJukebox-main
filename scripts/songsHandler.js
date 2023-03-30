@@ -31,26 +31,35 @@ function checkIfSongEnded() {
 
 }
 
-let counterForSongs = 0;
+let counterForSongs;
 function checkSongsDown() {
     let songsDown = document.querySelectorAll(".song-1");
     counterForSongs = songsDown.length;
 }
 
 function changeTitle() {
+    checkForExistingSongs();
+    if(songsNowDown.length == 0 || songsNowDown.length == 1){
+        playingIndex = 0;
+    }
     let playingNowSongName = playlist0[playingIndex].nameOfSong;
     document.getElementsByClassName("performer-playing")[0].textContent = playingNowSongName;
     let performerNameTitle = playlist0[playingIndex].nameOfPerformer;
     document.getElementsByClassName("performer-name-title")[0].textContent = performerNameTitle;
 }
 
-checkSongsDown();
-if (counterForSongs == 0) {
-    document.getElementsByClassName("performer-playing")[0].textContent = 'None';
-    document.getElementsByClassName("performer-name-title")[0].textContent = "None";
-} else {
-    changeTitle();
+
+makeControlsNone();
+function makeControlsNone(){
+    checkSongsDown();
+    if (counterForSongs == 0) {
+        document.getElementsByClassName("performer-playing")[0].textContent = 'None';
+        document.getElementsByClassName("performer-name-title")[0].textContent = "None";
+    } else {
+        changeTitle();
+    }
 }
+
 
 
 function setLengthSlider() {
@@ -110,6 +119,7 @@ setInterval(playingElementCheck, 100);
 
 function playingElementCheck() {
     checkForExistingSongs();
+    checkSongsDown();
     if (counter1 == 0 && counterForSongs != 0 && songsNowDown.length > 0) {
         document.getElementsByClassName("song-1")[playingIndex].setAttribute("id", "song-1-focus");
         playingNowOld = playingIndex;

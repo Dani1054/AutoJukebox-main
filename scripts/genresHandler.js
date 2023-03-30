@@ -62,6 +62,7 @@ function checkForGenresItems() {
                 nameOfPlaylist = document.getElementsByClassName("playlist-item")[i].textContent;
                 generateSongsByPlaylist();
                 console.log(playlist0);
+                checkForLaterSong();
             }
             
             document.getElementsByClassName("playlist-box")[inFocusNow].setAttribute("id", "focus");
@@ -93,6 +94,7 @@ function removeAllSongs(){
         songBox.remove();
     });
     playlist0 = [];
+    makeControlsNone();
 }
 
 function scraperForSongsToFillPlaylist0(){
@@ -105,5 +107,16 @@ function scraperForSongsToFillPlaylist0(){
             }
         }
         
+    }
+}
+
+function checkForLaterSong(){
+    let numberOfSongsDown = document.querySelectorAll('.song-1');
+    if(numberOfSongsDown.length > 0){
+        let textContentOfSpanInSongs = document.querySelector('.secondary-song-title').textContent;
+        playingIndex = 0;
+        counter1 = 0;
+        changeTitle();
+        playingElementCheck();
     }
 }
