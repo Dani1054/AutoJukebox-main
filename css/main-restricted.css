@@ -550,3 +550,10 @@ input:checked + .slider:before {
     cursor: pointer;
     transition: 0.4s;
 }
+
+.span-for-error{
+    color: red;
+    margin: 1vw;
+    font-size: 1.3vw;
+    
+}
