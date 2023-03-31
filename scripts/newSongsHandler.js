@@ -72,7 +72,11 @@ function createChekers() {
         newDivElement.appendChild(newInputElement);
         newDivElement.appendChild(newSpanElement);
     }
-    removeErrorMessageInSongsAdder();
+    let spanForRemoval = document.querySelectorAll(".span-for-error");
+    if(spanForRemoval.length==1){
+        removeErrorMessageInSongsAdder();
+    }
+    
     let buttonDiv = document.createElement("div");
     buttonDiv.className = "button-checklist";
 
@@ -82,6 +86,7 @@ function createChekers() {
     let parentElementButton = document.getElementsByClassName("add-songs-container-shown")[0];
     parentElementButton.appendChild(buttonDiv);
     buttonDiv.appendChild(textInButtonDiv);
+    checkForCreatingButton = true;
 };
 
 
@@ -96,7 +101,7 @@ function createErrorMessageInSongsAdder() {
 }
 
 function removeErrorMessageInSongsAdder() {
-    let spanForRemoval = document.getElementsByClassName("span-for-error")[0];
+    let spanForRemoval = document.querySelector(".span-for-error");
     spanForRemoval.remove();
 }
 

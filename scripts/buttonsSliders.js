@@ -6,6 +6,8 @@ let playingIndex = 0;
 let playingNowOld = playingIndex;
 let playingNowSongName;
 
+let counterForStartingSong = 0;
+
 if (volumeElement) {
   volumeElement.addEventListener("input", function () {
     let speakerValue = volumeElement.value;
@@ -22,7 +24,16 @@ playPauseButton.addEventListener("click", playPause);
 
 function playPause() {
   let imageSource = playPauseButton.getAttribute("src");
-  if (imageSource === "themes/default/icons/play-player-button.png") {
+  checkForExistingSongs();
+  if (songsNowDown.length == 0) { }
+  else if (imageSource === "themes/default/icons/play-player-button.png" && songsNowDown.length > 0 && counterForStartingSong == 0) {
+    counterForStartingSong++;
+    let music = playlist0[playingIndex].source;
+    playerAudioElement.setAttribute("src", music);
+    playerAudioElement.play();
+    playPauseButton.setAttribute("src", "themes/default/icons/pause-player-button.png");
+  }
+  else if (imageSource === "themes/default/icons/play-player-button.png" && songsNowDown.length > 0 && counterForStartingSong >= 1) {
     playPauseButton.setAttribute("src", "themes/default/icons/pause-player-button.png");
     playMusic();
   } else {
@@ -60,6 +71,7 @@ const previousSongButton = document.getElementsByClassName("previous")[0];
 previousSongButton.addEventListener("click", previousSong);
 
 function previousSong() {
+  playingNowLength = playlist0.length;
   for (let i = 0; i < playlist0.length; i++) {
     if (playingIndex == i) {
       if (playingIndex == 0) {

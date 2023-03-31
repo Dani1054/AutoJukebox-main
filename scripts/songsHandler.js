@@ -1,4 +1,4 @@
-function checkForExistingSongs(){
+function checkForExistingSongs() {
     songsNowDown = document.querySelectorAll('.song-1');
 }
 
@@ -6,6 +6,7 @@ let songsNowDown;
 let counter1 = 0;
 checkIfSongEnded();
 function checkSongsDown() { };
+
 function checkIfSongEnded() {
     playerAudioElement.onended = function () {
         if (isAutopilotActive === false) {
@@ -18,6 +19,10 @@ function checkIfSongEnded() {
                     playingIndex++;
                     break;
                 }
+            }
+            checkForExistingSongs();
+            if (songsNowDown.length == 1) {
+                playingIndex = 0;
             }
             let music = playlist0[playingIndex].source;
             playerAudioElement.pause();
@@ -39,7 +44,7 @@ function checkSongsDown() {
 
 function changeTitle() {
     checkForExistingSongs();
-    if(songsNowDown.length == 0 || songsNowDown.length == 1){
+    if (songsNowDown.length == 0 || songsNowDown.length == 1) {
         playingIndex = 0;
     }
     let playingNowSongName = playlist0[playingIndex].nameOfSong;
@@ -50,7 +55,7 @@ function changeTitle() {
 
 
 makeControlsNone();
-function makeControlsNone(){
+function makeControlsNone() {
     checkSongsDown();
     if (counterForSongs == 0) {
         document.getElementsByClassName("performer-playing")[0].textContent = 'None';
@@ -66,14 +71,33 @@ function setLengthSlider() {
     let actualSliderLength = ((playerAudioElement.currentTime / playerAudioElement.duration) * 100).toString();
     document.getElementById("duration-slider").value = actualSliderLength;
 };
-setInterval(setLengthSlider, 1);
+let checkForCreatingButton = false;
+setInterval(checkToStartUsingSliderForDuration, 1);
+
+function checkToStartUsingSliderForDuration() {
+    //console.log("HALO");
+    if (checkForCreatingButton == true) {
+        let buttonForAddingSongs = document.getElementsByClassName("button-checklist")[0];
+        buttonForAddingSongs.addEventListener("click", function () {
+            checkForExistingSongs();
+            //console.log(songsNowDown.length);
+            if (songsNowDown.length > 0) {
+                setInterval(setLengthSlider, 1);
+                document.getElementById("duration-slider").addEventListener("input", setTimeAudio);
+            }
+        });
+    }
+
+}
+
+
 
 function setTimeAudio() {
     let sliderValue = document.getElementById("duration-slider").value;
     let actualTime = (sliderValue / 100) * playerAudioElement.duration;
     playerAudioElement.currentTime = actualTime;
 };
-document.getElementById("duration-slider").addEventListener("input", setTimeAudio);
+
 
 
 
@@ -90,23 +114,31 @@ let curentTimeOfSong = playerAudioElement.currentTime;
 
 function newConvertSecondsToMinutesForNoneSongs() {
     if (playerAudioElement && playlist0.length != 0) {
-        setInterval(convertSecondsToMinutes, 1);
+        convertSecondsToMinutes();
     }
 }
 
 setInterval(newConvertSecondsToMinutesForNoneSongs, 1);
+let counterForSliderForTimeForFirstTime = 0;
 
 function convertSecondsToMinutes(duration, curentTimeOfSong) {
+    if(counterForSliderForTimeForFirstTime == 0){
+        let music = playlist0[playingIndex].source;
+        playerAudioElement.setAttribute("src", music);
+        counterForSliderForTimeForFirstTime++;
+    }
+    
     var x = Number.isNaN(duration);
 
     if (x == true && playlist0.length == 0) {
         document.getElementsByClassName("song-duration")[0].textContent = "0:00";
     } else {
+        
         var duration = playerAudioElement.duration;
         var minutes = Math.floor(duration / 60);
         var seconds = Math.floor(duration % 60).toString();
-        document.getElementsByClassName("song-duration")[0].textContent =
-            minutes + ":" + seconds.padStart(2, "0");
+        //console.log(playerAudioElement);
+        document.getElementsByClassName("song-duration")[0].textContent = minutes + ":" + seconds.padStart(2, "0");
     }
     var curentTimeOfSong = curentTimeOfSong;
     var minutes = Math.floor(playerAudioElement.currentTime / 60);
@@ -124,6 +156,9 @@ function playingElementCheck() {
         document.getElementsByClassName("song-1")[playingIndex].setAttribute("id", "song-1-focus");
         playingNowOld = playingIndex;
         counter1++;
+    } else if (songsNowDown.length == 1) {
+        playingIndex = 0;
+        document.getElementsByClassName("song-1")[playingIndex].setAttribute("id", "song-1-focus");
     } else if (counterForSongs != 0 && songsNowDown.length > 0) {
         document.getElementsByClassName("song-1")[playingNowOld].removeAttribute("id");
         document.getElementsByClassName("song-1")[playingIndex].setAttribute("id", "song-1-focus");
