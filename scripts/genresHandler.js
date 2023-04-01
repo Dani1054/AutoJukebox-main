@@ -3,7 +3,7 @@ let counterForErrorMessageBelowaddingGenres = 0;
 let boolForChecking = false;
 let controlVariableForPopingGenres = 0;
 let controlVariableForDeletingErrorForSameName = false;
-let banDeletingMesseges = true;
+let banDeletingMesseges = false;
 
 function createGenresItems() {
     for (let i = 0; i < genresList.length; i++) {
@@ -60,35 +60,37 @@ buttonForAdding.addEventListener("click", function () {
         if (valueTextInput !== "" && valueTextInput !== " ") {
             genresList.push(valueTextInput);
             checkForDuplicates();
-            if(controlVariableForPopingGenres == 1){
-                console.log("TUPSON");
+            let errorMessage2 = document.querySelectorAll('.span-for-error-name');
+            let errorMessage1 = document.querySelectorAll('.span-for-error');
+            if (controlVariableForPopingGenres == 1) {
                 genresList.pop();
-                controlVariableForPopingGenres = 3;
-                createErrorMessafeInGenreCreatorForSameName();
-            }
-            else if(controlVariableForPopingGenres == 3){
-                
-                deleteErrorMessage();
+                if (errorMessage2.length == 0) {
+                    createErrorMessafeInGenreCreatorForSameName();
+                }
                 controlVariableForPopingGenres = 0;
+            } else if (errorMessage2.length == 1) {
+                deleteErrorMessage2();
             }
-            if (counterForErrorMessageBelowaddingGenres != 0 ) {
-                deleteErrorMessage();
+            if(errorMessage1.length == 1){
+                deleteErrorMessage1();
+                counterForErrorMessageBelowaddingGenres = 0;
             }
 
             console.log(genresList);
         }
+
         createGenresItems();
         counter = true;
-        //checkForDuplicates();
     }
 
 });
+
 
 function checkForDuplicates() {
     if (genresList.length != 1) {
         for (let i = 0; i < genresList.length; i++) {
             for (let z = 0; z < genresList.length; z++) {
-                if (genresList[i] === genresList[z] && i!=z) {
+                if (genresList[i] === genresList[z] && i != z) {
                     controlVariableForPopingGenres = 1;
                 }
             }
@@ -180,18 +182,24 @@ function createErrorMessafeInGenreCreator() {
 }
 
 function createErrorMessafeInGenreCreatorForSameName() {
-    counterForErrorMessageBelowaddingGenres++;
     boolForChecking = true;
     let newSpanElementForError = document.createElement("span");
     newSpanElementForError.textContent = "Oprostite ali ne smijete upisivati ista imena";
-    newSpanElementForError.className = "span-for-error";
+    newSpanElementForError.className = "span-for-error-name";
     let parentElementToErrorMessage = document.getElementsByClassName("menu")[0];
     parentElementToErrorMessage.appendChild(newSpanElementForError);
 }
 
-function deleteErrorMessage() {
+function deleteErrorMessage1() {
     boolForChecking = false;
     counterForErrorMessageBelowaddingGenres = 0;
     let newSpanElementForError = document.getElementsByClassName("span-for-error")[0];
+    newSpanElementForError.remove();
+}
+
+function deleteErrorMessage2() {
+    boolForChecking = false;
+    counterForErrorMessageBelowaddingGenres = 0;
+    let newSpanElementForError = document.getElementsByClassName("span-for-error-name")[0];
     newSpanElementForError.remove();
 }

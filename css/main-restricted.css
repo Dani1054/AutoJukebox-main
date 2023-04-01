@@ -555,5 +555,10 @@ input:checked + .slider:before {
     color: red;
     margin: 1vw;
     font-size: 1.3vw;
-    
+}
+
+.span-for-error-name{
+    color: red;
+    margin: 1vw;
+    font-size: 1.3vw;
 }

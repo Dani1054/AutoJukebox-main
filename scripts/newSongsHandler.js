@@ -7,7 +7,6 @@ function checkForFocusElementGenres() {
     let inFocusElement = document.querySelector('#focus');
     for (let i = 0; i < numOfGenres.length; i++) {
         if (numOfGenres[i] == inFocusElement) {
-            //console.log(i);
             nameOfPlaylistOpen = document.getElementsByClassName("playlist-item")[i].textContent;
         }
     }
@@ -38,8 +37,7 @@ function openSongsContainer() {
     
 }
 
-console.log(document.getElementsByClassName("add-songs-container")[0]);
-
+//console.log(document.getElementsByClassName("add-songs-container")[0]);
 
 
 document.getElementsByClassName("button-for-adding-songs")[0].addEventListener("click", function(){
@@ -87,7 +85,7 @@ function createChekers() {
     parentElementButton.appendChild(buttonDiv);
     buttonDiv.appendChild(textInButtonDiv);
     checkForCreatingButton = true;
-};
+}
 
 
 
@@ -126,6 +124,9 @@ function checkButtonForAddingSongs() {
                 checkIfSongEnded();
                 playingElementCheck();
                 uncheckCheckers(i);
+                activatePreviousAndNextSongButton();
+                activateDragAndDrop();
+                getClicksAndPlayMusicFromPlayButtons();
             }
         }
     });

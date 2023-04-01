@@ -51,8 +51,18 @@ function stopMusic() {
   playerAudioElement.pause();
 }
 
-const nextSongButton = document.getElementsByClassName("next")[0];
-nextSongButton.addEventListener("click", nextSong);
+
+
+
+
+function activatePreviousAndNextSongButton() {
+  let checkForSongsDown = document.querySelectorAll('.song-1');
+
+  const nextSongButton = document.getElementsByClassName("next")[0];
+  nextSongButton.addEventListener("click", nextSong);
+  const previousSongButton = document.getElementsByClassName("previous")[0];
+  previousSongButton.addEventListener("click", previousSong);
+}
 
 function nextSong() {
   for (let i = 0; i < playlist0.length; i++) {
@@ -67,8 +77,7 @@ function nextSong() {
   }
   funcitonForPlayingNextMusic();
 }
-const previousSongButton = document.getElementsByClassName("previous")[0];
-previousSongButton.addEventListener("click", previousSong);
+
 
 function previousSong() {
   playingNowLength = playlist0.length;
