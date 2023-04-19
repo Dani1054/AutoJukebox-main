@@ -24,68 +24,68 @@ function closeSongsContainer() {
 function openSongsContainer() {
     document.getElementsByClassName("add-songs-container")[0].className = "add-songs-container-shown";
     checkForNumberOfplaylists();
-    if (numOfPlaylists > 0 && ((counterForOpening ==  0 && boolForCheckingError==false) || (counterForOpening ==  1 && boolForCheckingError==true))) {
+    if (numOfPlaylists > 0 && ((counterForOpening == 0 && boolForCheckingError == false) || (counterForOpening == 1 && boolForCheckingError == true))) {
         createChekers();
         checkButtonForAddingSongs();
         counterForOpening++;
 
-    } else if(counterForOpening==0){
+    } else if (counterForOpening == 0) {
         createErrorMessageInSongsAdder();
         counterForOpening++;
         boolForCheckingError = true;
     }
-    
+
 }
 
 //console.log(document.getElementsByClassName("add-songs-container")[0]);
 
 
-document.getElementsByClassName("button-for-adding-songs")[0].addEventListener("click", function(){
+document.getElementsByClassName("button-for-adding-songs")[0].addEventListener("click", function () {
     let elementForAddingSongsForChecking = document.getElementsByClassName("add-songs-container")[0];
     console.log(elementForAddingSongsForChecking);
-    if(typeof elementForAddingSongsForChecking == "undefined"){
+    if (typeof elementForAddingSongsForChecking == "undefined") {
         closeSongsContainer();
-    }else{
+    } else {
         openSongsContainer();
     }
 });
 document.getElementsByClassName("close-songs")[0].addEventListener("click", closeSongsContainer);
-if(document.getElementsByClassName(""))
+if (document.getElementsByClassName(""))
 
-function createChekers() {
-    for (let i = 0; i < songDatabase.length; i++) {
-        let newDivElement = document.createElement("div");
+    function createChekers() {
+        for (let i = 0; i < songDatabase.length; i++) {
+            let newDivElement = document.createElement("div");
 
-        let newSpanElement = document.createElement("span");
-        newSpanElement.className = "span-song";
-        newSpanElement.textContent = songDatabase[i].nameOfSong;
+            let newSpanElement = document.createElement("span");
+            newSpanElement.className = "span-song";
+            newSpanElement.textContent = songDatabase[i].nameOfSong;
 
 
-        let newInputElement = document.createElement("input");
-        newInputElement.setAttribute("type", "checkbox");
-        newInputElement.className = "check";
+            let newInputElement = document.createElement("input");
+            newInputElement.setAttribute("type", "checkbox");
+            newInputElement.className = "check";
 
-        let parentToInput = document.getElementsByClassName("chekcers-box")[0];
-        parentToInput.appendChild(newDivElement);
-        newDivElement.appendChild(newInputElement);
-        newDivElement.appendChild(newSpanElement);
+            let parentToInput = document.getElementsByClassName("chekcers-box")[0];
+            parentToInput.appendChild(newDivElement);
+            newDivElement.appendChild(newInputElement);
+            newDivElement.appendChild(newSpanElement);
+        }
+        let spanForRemoval = document.querySelectorAll(".span-for-error");
+        if (spanForRemoval.length == 1) {
+            removeErrorMessageInSongsAdder();
+        }
+
+        let buttonDiv = document.createElement("div");
+        buttonDiv.className = "button-checklist";
+
+        let textInButtonDiv = document.createElement("span");
+        textInButtonDiv.textContent = "Spremi promjene";
+
+        let parentElementButton = document.getElementsByClassName("add-songs-container-shown")[0];
+        parentElementButton.appendChild(buttonDiv);
+        buttonDiv.appendChild(textInButtonDiv);
+        checkForCreatingButton = true;
     }
-    let spanForRemoval = document.querySelectorAll(".span-for-error");
-    if(spanForRemoval.length==1){
-        removeErrorMessageInSongsAdder();
-    }
-    
-    let buttonDiv = document.createElement("div");
-    buttonDiv.className = "button-checklist";
-
-    let textInButtonDiv = document.createElement("span");
-    textInButtonDiv.textContent = "Spremi promjene";
-
-    let parentElementButton = document.getElementsByClassName("add-songs-container-shown")[0];
-    parentElementButton.appendChild(buttonDiv);
-    buttonDiv.appendChild(textInButtonDiv);
-    checkForCreatingButton = true;
-}
 
 
 
@@ -144,16 +144,16 @@ function createSongsInDragAndDrop(i) {
     newDivElementSongs.setAttribute('draggable', true);
 
     let newSpanElement = document.createElement("span");
-    newSpanElement.className = "secondary-song-title text-font-deafult";
+    newSpanElement.className = "secondary-song-title text-font-default";
     newSpanElement.textContent = songDatabase[i].nameOfSong;
 
 
     let newArtistSpan = document.createElement("span");
-    newArtistSpan.className = "performer text-font-deafult";
+    newArtistSpan.className = "performer text-font-default";
     newArtistSpan.textContent = songDatabase[i].nameOfPerformer;
 
     let pictureNew = document.createElement("img");
-    pictureNew.src = "themes/default/icons/play_button.png";
+    pictureNew.src = "themes/" + preferredTheme + "/icons/play-button.png";
     pictureNew.className = "play-button";
 
     let parentToSongs = document.getElementsByClassName("container-for-song-1")[0];

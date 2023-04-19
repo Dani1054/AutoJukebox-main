@@ -26,18 +26,18 @@ function playPause() {
   let imageSource = playPauseButton.getAttribute("src");
   checkForExistingSongs();
   if (songsNowDown.length == 0) { }
-  else if (imageSource === "themes/default/icons/play-player-button.png" && songsNowDown.length > 0 && counterForStartingSong == 0) {
+  else if (imageSource === ("themes/" + preferredTheme + "/icons/play-player.png") && songsNowDown.length > 0 && counterForStartingSong == 0) {
     counterForStartingSong++;
     let music = playlist0[playingIndex].source;
     playerAudioElement.setAttribute("src", music);
     playerAudioElement.play();
-    playPauseButton.setAttribute("src", "themes/default/icons/pause-player-button.png");
+    playPauseButton.setAttribute("src", "themes/" + preferredTheme + "/icons/pause-player.png");
   }
-  else if (imageSource === "themes/default/icons/play-player-button.png" && songsNowDown.length > 0 && counterForStartingSong >= 1) {
-    playPauseButton.setAttribute("src", "themes/default/icons/pause-player-button.png");
+  else if (imageSource === ("themes/" + preferredTheme + "/icons/play-player.png") && songsNowDown.length > 0 && counterForStartingSong >= 1) {
+    playPauseButton.setAttribute("src", "themes/" + preferredTheme + "/icons/pause-player.png");
     playMusic();
   } else {
-    playPauseButton.setAttribute("src", "themes/default/icons/play-player-button.png");
+    playPauseButton.setAttribute("src", "themes/" + preferredTheme + "/icons/play-player.png");
     stopMusic();
   };
 
@@ -54,14 +54,33 @@ function stopMusic() {
 
 
 
-
+let counterForListenersForSkips = 0;
 function activatePreviousAndNextSongButton() {
   let checkForSongsDown = document.querySelectorAll('.song-1');
 
-  const nextSongButton = document.getElementsByClassName("next")[0];
-  nextSongButton.addEventListener("click", nextSong);
-  const previousSongButton = document.getElementsByClassName("previous")[0];
-  previousSongButton.addEventListener("click", previousSong);
+  if (checkForSongsDown.length > 0) {
+    const nextSongButton = document.getElementsByClassName("next")[0];
+    nextSongButton.addEventListener("click", nextSong);
+    const previousSongButton = document.getElementsByClassName("previous")[0];
+    previousSongButton.addEventListener("click", previousSong);
+    const shuffleButton = document.getElementsByClassName("shuffle")[0];
+    shuffleButton.addEventListener("click", shuffle);
+    const repeatButton = document.getElementsByClassName("repeat")[0];
+    repeatButton.addEventListener("click", repeat);
+    counterForListenersForSkips++;
+  } else if (counterForListenersForSkips > 0) {
+    const nextSongButton = document.getElementsByClassName("next")[0];
+    const previousSongButton = document.getElementsByClassName("previous")[0];
+    const shuffleButton = document.getElementsByClassName("shuffle")[0];
+    const repeatButton = document.getElementsByClassName("repeat")[0];
+    repeatButton.removeEventListener("click", repeat);
+    shuffleButton.removeEventListener("click", shuffle);
+    nextSongButton.removeEventListener("click", nextSong);
+    previousSongButton.removeEventListener("click", previousSong);
+    counterForSliderForTimeForFirstTime = 0;
+    newConvertSecondsToMinutesForNoneSongs();
+  }
+
 }
 
 function nextSong() {
@@ -111,12 +130,12 @@ function funcitonForPlayingNextMusic() {
   playingElementCheck();
 }
 
-const repeatButton = document.getElementsByClassName("repeat")[0];
-repeatButton.addEventListener("click", repeat);
+
 function repeat() {
+  const repeatButton = document.getElementsByClassName("repeat")[0];
   let imageSourceRepeat = repeatButton.getAttribute("src");
-  if (imageSourceRepeat === "themes/default/icons/repeat-off.png") {
-    repeatButton.setAttribute("src", "themes/default/icons/repeat-on.png");
+  if (imageSourceRepeat === "themes/" + preferredTheme + "/icons/repeat-off.png") {
+    repeatButton.setAttribute("src", "themes/" + preferredTheme + "/icons/repeat-on.png");
     if (imageSourceRepeat.setAttribute === "media/pauza.png") {
       playerAudioElement.play();
     }
@@ -124,7 +143,7 @@ function repeat() {
     playerAudioElement.loop = true;
 
   } else {
-    repeatButton.setAttribute("src", "themes/default/icons/repeat-off.png");
+    repeatButton.setAttribute("src", "themes/" + preferredTheme + "/icons/repeat-off.png");
     if (imageSourceRepeat.setAttribute === "media/pauza.png") {
       playerAudioElement.play();
     }
@@ -134,8 +153,7 @@ function repeat() {
   changeTitle();
 }
 
-const shuffleButton = document.getElementsByClassName("shuffle")[0];
-shuffleButton.addEventListener("click", shuffle);
+
 
 function shuffle() {
   array = playlist0;

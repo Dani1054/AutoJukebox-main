@@ -14,7 +14,7 @@ function createGenresItems() {
         parentNewElement.appendChild(newElement);
 
         let nameDiv = document.createElement("span");
-        nameDiv.className = "playlist-item text-font-deafult";
+        nameDiv.className = "playlist-item text-font-default";
         nameDiv.textContent = genresList[i];
 
         let parentNameDiv = document.getElementsByClassName("playlist-box")[i];
@@ -71,7 +71,7 @@ buttonForAdding.addEventListener("click", function () {
             } else if (errorMessage2.length == 1) {
                 deleteErrorMessage2();
             }
-            if(errorMessage1.length == 1){
+            if (errorMessage1.length == 1) {
                 deleteErrorMessage1();
                 counterForErrorMessageBelowaddingGenres = 0;
             }
@@ -113,6 +113,13 @@ function checkForGenresItems() {
                 nameOfPlaylist = document.getElementsByClassName("playlist-item")[i].textContent;
                 generateSongsByPlaylist();
                 checkForLaterSong();
+                activatePreviousAndNextSongButton();
+                if (playlist0.length > 0) {
+                    activateDragAndDrop();
+                    getClicksAndPlayMusicFromPlayButtons();
+                }
+                playPauseButton.setAttribute("src", "themes/" + preferredTheme + "/icons/play-player.png");
+                stopMusic();
             }
 
             document.getElementsByClassName("playlist-box")[inFocusNow].setAttribute("id", "focus");
@@ -123,7 +130,7 @@ function checkForGenresItems() {
     }
 
 }
-buttonForAdding = document.getElementsByClassName("button-to-add text-font-deafult")[0];
+buttonForAdding = document.getElementsByClassName("button-to-add text-font-default")[0];
 buttonForAdding.addEventListener("click", checkForGenresItems);
 
 function generateSongsByPlaylist() {

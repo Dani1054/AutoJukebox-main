@@ -115,6 +115,9 @@ let curentTimeOfSong = playerAudioElement.currentTime;
 function newConvertSecondsToMinutesForNoneSongs() {
     if (playerAudioElement && playlist0.length != 0) {
         convertSecondsToMinutes();
+    } else{
+        document.getElementsByClassName("song-duration")[0].textContent = "0:00";
+        document.getElementsByClassName("current-time")[0].textContent = "0:00";
     }
 }
 
@@ -122,18 +125,18 @@ setInterval(newConvertSecondsToMinutesForNoneSongs, 1);
 let counterForSliderForTimeForFirstTime = 0;
 
 function convertSecondsToMinutes(duration, curentTimeOfSong) {
-    if(counterForSliderForTimeForFirstTime == 0){
+    if (counterForSliderForTimeForFirstTime == 0) {
         let music = playlist0[playingIndex].source;
         playerAudioElement.setAttribute("src", music);
         counterForSliderForTimeForFirstTime++;
     }
-    
+
     var x = Number.isNaN(duration);
 
     if (x == true && playlist0.length == 0) {
         document.getElementsByClassName("song-duration")[0].textContent = "0:00";
     } else {
-        
+
         var duration = playerAudioElement.duration;
         var minutes = Math.floor(duration / 60);
         var seconds = Math.floor(duration % 60).toString();

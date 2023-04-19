@@ -14,18 +14,18 @@
 
     <link rel="stylesheet" href="css/main-restricted.css">
     <link rel="stylesheet" href="css/settings-menu.css">
-    <link id="css-theme-file" rel="stylesheet" href="themes/default/default-theme.css">
+    <link id="css-theme-file" rel="stylesheet" href="themes/default/theme.css">
 
+    <script src="scripts/themeHandler.js" defer></script>
     <script src="scripts/databaseSongs.js" defer></script>
     <script src="scripts/autopilot.js" defer></script>
     <script src="scripts/buttonsSliders.js" defer></script>
     <script src="scripts/dragAndDrop.js" defer></script>
     <script src="scripts/songsHandler.js" defer></script>
-    <script src="scripts/genresHandler.js" defer></script>
-    <script src="scripts/themeHandler.js" defer></script>
     <script src="scripts/newSongsHandler.js" defer></script>
+    <script src="scripts/genresHandler.js" defer></script>
 
-    <link rel="icon" type="image/x-icon" href="favicon_io (1)/favicon-16x16 (2).png">
+    <link rel="icon" type="image/x-icon" href="favicon/favicon-16x16.png">
 </head>
 
 <body>
@@ -42,7 +42,7 @@
         <div class="genre-list-items">
 
         </div>
-        <div class="button-to-add text-font-deafult">Stisni za dodavanje</div>
+        <div class="button-to-add text-font-default">Stisni za dodavanje</div>
     </div>
 
 
@@ -57,44 +57,44 @@
         </div>
 
         <div class="settings-menu-hidden">
-            <button class="text-font-deafult exit-settings">Izađi</button>
-            <label class="text-font-deafult down-margin-theme" for="upload-css">Prenesi temu</label>
-            <input class="text-font-deafult" type="file" name="upload-css" id="upload-css" accept=".css">
+            <button class="text-font-default exit-settings">Izađi</button>
+            <label class="text-font-default down-margin-theme" for="upload-css">Prenesi temu</label>
+            <input class="text-font-default" type="file" name="upload-css" id="upload-css" accept=".css">
 
             <span>
-                <label class="text-font-deafult" for="upload-css">Ime teme</label>
-                <input type="text" class="text-font-deafult" id="theme-name">
+                <label class="text-font-default" for="upload-css">Ime teme</label>
+                <input type="text" class="text-font-default" id="theme-name">
             </span>
 
-            <p class="status-theme-upload text-font-deafult"></p>
-            <button class="text-font-deafult upload-theme">Dodaj</button>
+            <p class="status-theme-upload text-font-default"></p>
+            <button class="text-font-default upload-theme">Dodaj</button>
 
 
             <div class="container-set-theme">
-                <h3 class="text-font-deafult">Izaberi temu</h3>
+                <h3 class="text-font-default">Izaberi temu</h3>
                 <form action="" id="change-theme">
                     <span class="down-margin-theme">
-                        <label class="text-font-deafult" for="standard-theme">Zadana tema</label>
+                        <label class="text-font-default" for="standard-theme">Zadana tema</label>
                         <input type="radio" id="standard-theme" name="application-theme" value="default-theme.css">
                     </span>
                 </form>
-                <button class="text-font-deafult set-theme">Postavi</button>
+                <button class="text-font-default set-theme">Postavi</button>
             </div>
         </div>
 
         <div class="all-in-one">
             <div class="playing-music">
-                <span class="performer-playing text-font-deafult">Abbey Road</span>
-                <span class="performer-name-title text-font-deafult">Beatles</span>
+                <span class="performer-playing text-font-default">Abbey Road</span>
+                <span class="performer-name-title text-font-default">Beatles</span>
                 <div class="time-view">
-                    <span class="current-time text-font-deafult">0:00</span>
+                    <span class="current-time text-font-default">0:00</span>
                     <span>/</span>
-                    <span class="song-duration text-font-deafult">0:00</span>
+                    <span class="song-duration text-font-default">0:00</span>
                 </div>
                 <div class="controls">
                     <img class="shuffle enabled-button" src="themes/default/icons/shuffle.png" alt="shuffle">
                     <img class="previous enabled-button" src="themes/default/icons/skip-song.png" alt="prijašnja">
-                    <img class="play enabled-button" src="themes/default/icons/play-player-button.png" alt="pusti">
+                    <img class="play enabled-button" src="themes/default/icons/play-player.png" alt="pusti">
                     <img class="next enabled-button" src="themes/default/icons/skip-song.png" alt="sljedeće">
                     <img class="repeat enabled-button" src="themes/default/icons/repeat-off.png" alt="ponavljanje">
                     <div class="ton"><img class="ton" src="themes/default/icons/volume.png" alt="ton"></div>
@@ -115,29 +115,29 @@
             </div>  -->
             <div class="song-order">
                 <!-- <div class="song-1" draggable="true">
-                    <span class="secondary-song-title text-font-deafult">Pjesma 1</span>
-                    <span class="performer text-font-deafult">Lorem ipsum</span>
-                    <img class="play-button enabled-button" src="media/icons/play_button.png">
+                    <span class="secondary-song-title text-font-default">Pjesma 1</span>
+                    <span class="performer text-font-default">Lorem ipsum</span>
+                    <img class="play-button enabled-button" src="media/icons/play-button.png">
                 </div>
                 <div class="song-1" draggable="true">
-                    <span class="secondary-song-title text-font-deafult">Pjesma 2</span>
-                    <span class="performer text-font-deafult">Lorem ipsum</span>
-                    <img class="play-button enabled-button" src="media/icons/play_button.png">
+                    <span class="secondary-song-title text-font-default">Pjesma 2</span>
+                    <span class="performer text-font-default">Lorem ipsum</span>
+                    <img class="play-button enabled-button" src="media/icons/play-button.png">
                 </div>
                 <div class="song-1" draggable="true">
-                    <span class="secondary-song-title text-font-deafult">Pjesma 3</span>
-                    <span class="performer text-font-deafult">Lorem ipsum</span>
-                    <img class="play-button enabled-button" src="media/icons/play_button.png">
+                    <span class="secondary-song-title text-font-default">Pjesma 3</span>
+                    <span class="performer text-font-default">Lorem ipsum</span>
+                    <img class="play-button enabled-button" src="media/icons/play-button.png">
                 </div>
                 <div class="song-1" draggable="true">
-                    <span class="secondary-song-title text-font-deafult">Pjesma 4</span>
-                    <span class="performer text-font-deafult">Lorem ipsum</span>
-                    <img class="play-button enabled-button" src="media/icons/play_button.png">
+                    <span class="secondary-song-title text-font-default">Pjesma 4</span>
+                    <span class="performer text-font-default">Lorem ipsum</span>
+                    <img class="play-button enabled-button" src="media/icons/play-button.png">
                 </div>
                 <div class="song-1" draggable="true">
-                    <span class="secondary-song-title text-font-deafult">Pjesma 5</span>
-                    <span class="performer text-font-deafult">Lorem ipsum</span>
-                    <img class="play-button enabled-button" src="media/icons/play_button.png">
+                    <span class="secondary-song-title text-font-default">Pjesma 5</span>
+                    <span class="performer text-font-default">Lorem ipsum</span>
+                    <img class="play-button enabled-button" src="media/icons/play-button.png">
                 </div> -->
                 <div class="container-for-song-1"></div>
             </div>

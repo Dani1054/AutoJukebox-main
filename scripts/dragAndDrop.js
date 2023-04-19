@@ -51,7 +51,7 @@ function activateDragAndDrop() {
 function getClicksAndPlayMusicFromPlayButtons() {
   let secondaryPlayButtons = document.querySelectorAll('.play-button');
   let oldTemporary;
-  
+
   secondaryPlayButtons.forEach((element, index) => {
     element.addEventListener('click', () => {
       console.log("HALO");
@@ -75,15 +75,15 @@ function getClicksAndPlayMusicFromPlayButtons() {
       let imageSourceSmall = smallPlayPauseButton.getAttribute("src");
       let music = playlist0[playingIndex].source;
       console.log(music);
-      if (/*counterForClickingOnPlayButton == (temporary+1) &&*/ oldTemporary != temporary ) {
+      if (/*counterForClickingOnPlayButton == (temporary+1) &&*/ oldTemporary != temporary) {
         playerAudioElement.pause();
         playerAudioElement.setAttribute("src", music);
         playerAudioElement.load();
         playerAudioElement.addEventListener('canplaythrough', () => {
           playerAudioElement.play();
-          playPauseButton.setAttribute("src", "themes/default/icons/pause-player-button.png");
+          playPauseButton.setAttribute("src", "themes/" + preferredTheme + "/icons/pause-player.png");
           counterForClickingOnPlayButton = 0;
-        }, {once: true});
+        }, { once: true });
       }
 
       changeTitle();

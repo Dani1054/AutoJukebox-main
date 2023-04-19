@@ -23,7 +23,7 @@ body {
     font-family: 'Audiowide', cursive;
 }
 
-.text-font-deafult {
+.text-font-default {
     font-family: 'Open Sans', sans-serif;
 }
 
@@ -538,11 +538,11 @@ input:checked + .slider:before {
     border: 0.2vw solid gray;
 }
 
-#focus{
+#focus {
     width: 100%;
     height: 3vw;
-    border: 0.25vw #333333 solid; 
-    border: 0.25vw lightgray solid; 
+    border: 0.25vw #333333 solid;
+    border: 0.25vw lightgray solid;
     border-radius: 3vw;
     position: relative;
     display: flex;
@@ -551,13 +551,13 @@ input:checked + .slider:before {
     transition: 0.4s;
 }
 
-.span-for-error{
+.span-for-error {
     color: red;
     margin: 1vw;
     font-size: 1.3vw;
 }
 
-.span-for-error-name{
+.span-for-error-name {
     color: red;
     margin: 1vw;
     font-size: 1.3vw;
