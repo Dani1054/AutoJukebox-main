@@ -2,7 +2,6 @@ let nameOfPlaylistOpen;
 let numOfGenres;
 let counterForOpening = 0;
 function checkForFocusElementGenres() {
-
     numOfGenres = document.querySelectorAll('.playlist-box');
     let inFocusElement = document.querySelector('#focus');
     for (let i = 0; i < numOfGenres.length; i++) {
@@ -12,16 +11,19 @@ function checkForFocusElementGenres() {
     }
 
 }
+
 let boolForCheckingError = false;
 let numOfPlaylists;
 function checkForNumberOfplaylists() {
     let nodeOfAllPlaylists = document.querySelectorAll('.playlist-box');
     numOfPlaylists = nodeOfAllPlaylists.length;
 }
-function closeSongsContainer() {
+
+function closeSongsContainerForAdding() {
     document.getElementsByClassName("add-songs-container-shown")[0].className = "add-songs-container";
 }
-function openSongsContainer() {
+
+function openSongsContainerForAdding() {
     document.getElementsByClassName("add-songs-container")[0].className = "add-songs-container-shown";
     checkForNumberOfplaylists();
     if (numOfPlaylists > 0 && ((counterForOpening == 0 && boolForCheckingError == false) || (counterForOpening == 1 && boolForCheckingError == true))) {
@@ -42,52 +44,49 @@ function openSongsContainer() {
 
 document.getElementsByClassName("button-for-adding-songs")[0].addEventListener("click", function () {
     let elementForAddingSongsForChecking = document.getElementsByClassName("add-songs-container")[0];
-    console.log(elementForAddingSongsForChecking);
     if (typeof elementForAddingSongsForChecking == "undefined") {
-        closeSongsContainer();
+        closeSongsContainerForAdding();
     } else {
-        openSongsContainer();
+        openSongsContainerForAdding();
     }
 });
-document.getElementsByClassName("close-songs")[0].addEventListener("click", closeSongsContainer);
-if (document.getElementsByClassName(""))
 
-    function createChekers() {
-        for (let i = 0; i < songDatabase.length; i++) {
-            let newDivElement = document.createElement("div");
+document.getElementsByClassName("close-songs")[0].addEventListener("click", closeSongsContainerForAdding);
 
-            let newSpanElement = document.createElement("span");
-            newSpanElement.className = "span-song";
-            newSpanElement.textContent = songDatabase[i].nameOfSong;
+function createChekers() {
+    for (let i = 0; i < songDatabase.length; i++) {
+        let newDivElement = document.createElement("div");
+
+        let newSpanElement = document.createElement("span");
+        newSpanElement.className = "span-song";
+        newSpanElement.textContent = songDatabase[i].nameOfSong;
 
 
-            let newInputElement = document.createElement("input");
-            newInputElement.setAttribute("type", "checkbox");
-            newInputElement.className = "check";
+        let newInputElement = document.createElement("input");
+        newInputElement.setAttribute("type", "checkbox");
+        newInputElement.className = "check";
 
-            let parentToInput = document.getElementsByClassName("chekcers-box")[0];
-            parentToInput.appendChild(newDivElement);
-            newDivElement.appendChild(newInputElement);
-            newDivElement.appendChild(newSpanElement);
-        }
-        let spanForRemoval = document.querySelectorAll(".span-for-error");
-        if (spanForRemoval.length == 1) {
-            removeErrorMessageInSongsAdder();
-        }
-
-        let buttonDiv = document.createElement("div");
-        buttonDiv.className = "button-checklist";
-
-        let textInButtonDiv = document.createElement("span");
-        textInButtonDiv.textContent = "Spremi promjene";
-
-        let parentElementButton = document.getElementsByClassName("add-songs-container-shown")[0];
-        parentElementButton.appendChild(buttonDiv);
-        buttonDiv.appendChild(textInButtonDiv);
-        checkForCreatingButton = true;
+        let parentToInput = document.getElementsByClassName("chekcers-box")[0];
+        parentToInput.appendChild(newDivElement);
+        newDivElement.appendChild(newInputElement);
+        newDivElement.appendChild(newSpanElement);
+    }
+    let spanForRemoval = document.querySelectorAll(".span-for-error");
+    if (spanForRemoval.length == 1) {
+        removeErrorMessageInSongsAdder();
     }
 
+    let buttonDiv = document.createElement("div");
+    buttonDiv.className = "button-checklist";
 
+    let textInButtonDiv = document.createElement("span");
+    textInButtonDiv.textContent = "Spremi promjene";
+
+    let parentElementButton = document.getElementsByClassName("add-songs-container-shown")[0];
+    parentElementButton.appendChild(buttonDiv);
+    buttonDiv.appendChild(textInButtonDiv);
+    checkForCreatingButton = true;
+}
 
 
 function createErrorMessageInSongsAdder() {
@@ -168,3 +167,324 @@ function createSongsInDragAndDrop(i) {
 
 //document.getElementsByClassName("button-checklist")[0].addEventListener("click", checkSongsDown);
 //setInterval(checkSongsDown, 1);
+
+
+
+
+// PROGRAM ZA MICANJA PJESAMA AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+
+
+
+let buttonForRemovingSongs = document.getElementsByClassName("button-for-removing-songs")[0];
+
+
+buttonForRemovingSongs.addEventListener('click', function () {
+    let elementForAddingSongsForChecking = document.getElementsByClassName("remove-songs-container")[0];
+    if (typeof elementForAddingSongsForChecking == "undefined") {
+        closeSongsContainerForRemovingSongs();
+    } else {
+        openSongsContainerForRemovingSongs();
+    }
+});
+
+function closeSongsContainerForRemovingSongs() {
+    document.getElementsByClassName("remove-songs-container-shown")[0].className = "remove-songs-container";
+}
+
+let checkForOpeningWindowForDeleting = false;
+
+function openSongsContainerForRemovingSongs() {
+    document.getElementsByClassName("remove-songs-container")[0].className = "remove-songs-container-shown";
+    let checkForCheckersToStopDoubling = document.querySelectorAll('.check-to-delete');
+    if (!checkForOpeningWindowForDeleting) {
+        createCheckersForDeletingSongs();
+        checkForOpeningWindowForDeleting = true;
+    } else {
+        deleteAllSongsForDeleting();
+        createCheckersForDeletingSongs();
+    }
+
+}
+
+document.getElementsByClassName("close-songs")[1].addEventListener("click", closeSongsContainerForRemovingSongs);
+
+function createCheckersForDeletingSongs() {
+    for (let i = 0; i < playlist0.length; i++) {
+        let newDivElement = document.createElement("div");
+
+        let newSpanElement = document.createElement("span");
+        newSpanElement.className = "span-song-for-delete";
+        newSpanElement.textContent = playlist0[i].nameOfSong;
+
+
+        let newInputElement = document.createElement("input");
+        newInputElement.setAttribute("type", "checkbox");
+        newInputElement.className = "check-to-delete";
+
+        let parentToInput = document.getElementsByClassName("chekcers-box-for-deleting-songs")[0];
+        parentToInput.appendChild(newDivElement);
+        newDivElement.appendChild(newInputElement);
+        newDivElement.appendChild(newSpanElement);
+    }
+    if (playlist0.length != 0) {
+        let spanForRemoval = document.querySelectorAll('.span-for-error-delete-songs');
+        if (spanForRemoval.length != 0) {
+            removeErrorMessageInSongsForDelete();
+        }
+        let buttonForDeletingSongs = document.querySelectorAll('.button-checklist-remove');
+        if (buttonForDeletingSongs.length == 0) {
+            let buttonDiv = document.createElement("div");
+            buttonDiv.className = "button-checklist-remove";
+
+            let textInButtonDiv = document.createElement("span");
+            textInButtonDiv.textContent = "Spremi promjene";
+
+            let parentElementButton = document.getElementsByClassName("remove-songs-container-shown")[0];
+            parentElementButton.appendChild(buttonDiv);
+            buttonDiv.appendChild(textInButtonDiv);
+            buttonDiv.addEventListener('click', function () {
+                checkButtonForDeletingSongs();
+                deleteAllSongsInDragAndDrop();
+
+            });
+        }
+
+    } else {
+        let errorMessageForDeleteing = document.getElementsByClassName("span-for-error-delete-songs");
+        if (errorMessageForDeleteing.length == 0) {
+            createErrorMessageForNothingToDeleteSongs();
+        }
+    }
+}
+
+function createErrorMessageForNothingToDeleteSongs() {
+    let newSpanElementForError = document.createElement("span");
+    newSpanElementForError.textContent = "Nema pjesama za brisanje";
+    newSpanElementForError.className = "span-for-error-delete-songs";
+    let parentElementToErrorMessage = document.getElementsByClassName("remove-songs-container-shown")[0];
+    parentElementToErrorMessage.appendChild(newSpanElementForError);
+}
+
+function removeErrorMessageInSongsForDelete() {
+    let spanForRemoval = document.querySelector('.span-for-error-delete-songs');
+    spanForRemoval.remove();
+}
+
+function checkButtonForDeletingSongs() {
+    for (let i = 0; i < playlist0.length; i++) {
+        let checkerForSongToDelete = document.getElementsByClassName("check-to-delete")[i];
+        if (checkerForSongToDelete.checked == true) {
+            playlist0.splice(i, 1);
+        }
+    }
+}
+
+let buttonForDeletingSongs = document.getElementsByClassName("button-checklist-remove")[0];
+
+function deleteAllSongsInDragAndDrop() {
+    let allSongsForRemoving = document.querySelectorAll('.song-1');
+    allSongsForRemoving.forEach(songBox => {
+        songBox.remove();
+    });
+    for (let i = 0; i < playlist0.length; i++) {
+        for (let z = 0; z < songDatabase.length; z++) {
+            if (songDatabase[z].nameOfSong == playlist0[i].nameOfSong) {
+                createSongsInDragAndDrop(z);
+                uncheckCheckersForDeleting(i);
+            }
+        }
+    }
+}
+
+function uncheckCheckersForDeleting(i) {
+    let checkingCheckCurrentCheck = document.querySelectorAll('.check-to-delete');
+    let deleteSpanSong = document.querySelectorAll(".span-song-for-delete");
+    for (let i = 0; i < checkingCheckCurrentCheck.length; i++) {
+        if (checkingCheckCurrentCheck[i].checked == true) {
+            checkingCheckCurrentCheck[i].remove();
+            deleteSpanSong[i].remove();
+        }
+    }
+}
+
+function deleteAllSongsForDeleting() {
+    let allSongsForRemoving = document.querySelectorAll('.span-song-for-delete');
+    let sllCheckerForDeleting = document.querySelectorAll('.check-to-delete');
+    allSongsForRemoving.forEach(songBox => {
+        songBox.remove();
+
+    });
+
+    sllCheckerForDeleting.forEach(sllCheckerForDeleting => {
+        sllCheckerForDeleting.remove();
+    })
+}
+
+
+
+
+// PROGRAM ZA MICANJE PLAYLISTA AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+
+
+
+
+let buttonForRemovingPlaylists = document.getElementsByClassName("button-for-removing-playlists")[0];
+
+buttonForRemovingPlaylists.addEventListener('click', function () {
+    let elementForAddingSongsForChecking = document.getElementsByClassName("remove-playlists-container")[0];
+    if (typeof elementForAddingSongsForChecking == "undefined") {
+        closeSongsContainerForRemovingPlaylist();
+    } else {
+        deleteAllPlaylistsForDeleting();
+        openSongsContainerForRemovingPlaylist();
+        createCheckersForRemovingPlaylists();
+
+    }
+});
+
+function closeSongsContainerForRemovingPlaylist() {
+    document.getElementsByClassName("remove-playlists-container-shown")[0].className = "remove-playlists-container";
+}
+
+function openSongsContainerForRemovingPlaylist() {
+    document.getElementsByClassName("remove-playlists-container")[0].className = "remove-playlists-container-shown";
+
+}
+
+document.getElementsByClassName("close-songs")[2].addEventListener("click", closeSongsContainerForRemovingPlaylist);
+
+
+function createCheckersForRemovingPlaylists() {
+    let numberOfPlaylistsFromMenu = document.querySelectorAll('.playlist-item');
+    for (let i = 0; i < numberOfPlaylistsFromMenu.length; i++) {
+        console.log("HALO");
+        let newDivElement = document.createElement("div");
+
+        let newSpanElement = document.createElement("span");
+        newSpanElement.className = "span-playlist-for-delete";
+        newSpanElement.textContent = numberOfPlaylistsFromMenu[i].textContent;
+
+
+        let newInputElement = document.createElement("input");
+        newInputElement.setAttribute("type", "checkbox");
+        newInputElement.className = "check-to-delete-playlist";
+
+        let parentToInput = document.getElementsByClassName("chekcers-box-for-deleting-playlists")[0];
+        parentToInput.appendChild(newDivElement);
+        newDivElement.appendChild(newInputElement);
+        newDivElement.appendChild(newSpanElement);
+    }
+    let checkForNumberOfButtonsForSubmitToDeletePlaylist = document.querySelectorAll('.button-checklist-remove-playlst');
+    let getNumberOfPlaylists = document.querySelectorAll('.playlist-box');
+    let getNumberOfErrorMessagesForNoPlaylists = document.querySelectorAll('.span-for-error-delete-playlists')
+    if (checkForNumberOfButtonsForSubmitToDeletePlaylist.length == 0 && (getNumberOfPlaylists.length != 0)) {
+        deleteErrorMessageForNoPlaylists();
+        let buttonDiv = document.createElement("div");
+        buttonDiv.className = "button-checklist-remove-playlst";
+
+        let textInButtonDiv = document.createElement("span");
+        textInButtonDiv.textContent = "Spremi promjene";
+
+        let parentElementButton = document.getElementsByClassName("remove-playlists-container-shown")[0];
+        parentElementButton.appendChild(buttonDiv);
+        buttonDiv.appendChild(textInButtonDiv);
+        buttonDiv.addEventListener('click', function () {
+            
+            uncheckCheckersForDeletingPlaylistAndChangePlaylist();
+            deleteAllPlaylists();
+            createGenresItems();
+            document.getElementsByClassName("playlist-box")[inFocusNow].setAttribute("id", "focus");
+            checkForGenresItems();
+            let allSongsForRemoving = document.querySelectorAll('.song-1');
+            // allSongsForRemoving.forEach(songBox => {
+            //     songBox.remove();
+            // });
+            // playlist0 = [];
+            removeAllSongs();
+            
+            nameOfPlaylist = genresList[inFocusNow];
+            generateSongsByPlaylist();
+            scraperForSongsToFillPlaylist0();
+            playingElementCheck();
+            playingIndex = 0;
+            console.log(playlist0);
+            changeTitle();
+        });
+    }
+    if (getNumberOfPlaylists.length == 0 && getNumberOfErrorMessagesForNoPlaylists.length == 0) {
+        createErrorMessageForNoPlaylists();
+    }
+}
+
+function createErrorMessageForNoPlaylists() {
+    let newSpanElementForError = document.createElement("span");
+    newSpanElementForError.textContent = "Nema playlista za brisanje";
+    newSpanElementForError.className = "span-for-error-delete-playlists";
+    let parentElementToErrorMessage = document.getElementsByClassName("remove-playlists-container-shown")[0];
+    parentElementToErrorMessage.appendChild(newSpanElementForError);
+}
+
+function deleteErrorMessageForNoPlaylists() {
+    let spanForRemoval = document.querySelectorAll('.span-for-error-delete-playlists');
+    spanForRemoval.forEach(spanToRemove => {
+        spanToRemove.remove();
+    })
+
+}
+
+function deleteAllPlaylistsForDeleting() {
+    let allSongsForRemoving = document.querySelectorAll('.span-playlist-for-delete');
+    let sllCheckerForDeleting = document.querySelectorAll('.check-to-delete-playlist');
+    allSongsForRemoving.forEach(songBox => {
+        songBox.remove();
+    });
+
+    sllCheckerForDeleting.forEach(sllCheckerForDeleting => {
+
+        sllCheckerForDeleting.remove();
+    });
+
+}
+
+function uncheckCheckersForDeletingPlaylistAndChangePlaylist() {
+    let checkingCheckCurrentCheck = document.querySelectorAll('.check-to-delete-playlist');
+    let deleteSpanSong = document.querySelectorAll(".span-playlist-for-delete");
+    for (let i = 0; i < checkingCheckCurrentCheck.length; i++) {
+        if (checkingCheckCurrentCheck[i].checked == true) {
+            checkingCheckCurrentCheck[i].remove();
+            deleteSpanSong[i].remove();
+            genresList.splice(i, 1);
+
+
+
+            document.getElementsByClassName("playlist-box")[inFocusNow].removeAttribute("id");
+            removeAllSongs();
+            if (i != (checkingCheckCurrentCheck.length - 1)) {
+                inFocusNow = i;
+                console.log(i);
+                console.log("HALO BLENTo")
+            } else {
+                inFocusNow = 0;
+            }
+            nameOfPlaylist = document.getElementsByClassName("playlist-item")[i].textContent;
+            generateSongsByPlaylist();
+            checkForLaterSong();
+            activatePreviousAndNextSongButton();
+            if (playlist0.length > 0) {
+                activateDragAndDrop();
+                getClicksAndPlayMusicFromPlayButtons();
+            }
+            playPauseButton.setAttribute("src", "themes/" + preferredTheme + "/icons/play-player.png");
+            stopMusic();
+
+            document.getElementsByClassName("playlist-box")[inFocusNow].setAttribute("id", "focus");
+        }
+    }
+}
+
+function deleteAllPlaylists() {
+    let allPlaylistsForRemoving = document.querySelectorAll('.playlist-box');
+    allPlaylistsForRemoving.forEach(playlistBox => {
+        playlistBox.remove();
+    });
+}

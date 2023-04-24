@@ -54,7 +54,6 @@ function getClicksAndPlayMusicFromPlayButtons() {
 
   secondaryPlayButtons.forEach((element, index) => {
     element.addEventListener('click', () => {
-      console.log("HALO");
       let temporary = index;
       let temporaryName = document.getElementsByClassName("secondary-song-title")[temporary].textContent;
       counterForClickingOnPlayButton++;
