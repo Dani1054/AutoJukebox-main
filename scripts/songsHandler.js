@@ -75,7 +75,6 @@ let checkForCreatingButton = false;
 setInterval(checkToStartUsingSliderForDuration, 1);
 
 function checkToStartUsingSliderForDuration() {
-    //console.log("HALO");
     if (checkForCreatingButton == true) {
         let buttonForAddingSongs = document.getElementsByClassName("button-checklist")[0];
         buttonForAddingSongs.addEventListener("click", function () {

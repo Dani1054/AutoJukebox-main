@@ -20,7 +20,7 @@ function createGenresItems() {
         let parentNameDiv = document.getElementsByClassName("playlist-box")[i];
         parentNameDiv.appendChild(nameDiv);
     }
-
+    
 }
 
 let parentNewElement = document.getElementsByClassName("genre-list-items")[0];
@@ -78,8 +78,15 @@ buttonForAdding.addEventListener("click", function () {
 
             console.log(genresList);
         }
-
+        let checkIfWindowForDeletingPlaylistsIsOpen = document.querySelectorAll('.remove-playlists-container-shown');
+        
+        
         createGenresItems();
+        if(checkIfWindowForDeletingPlaylistsIsOpen.length != 0){
+            deleteAllPlaylistsForDeleting();
+            createCheckersForRemovingPlaylists();
+            
+        }
         counter = true;
     }
 
@@ -120,6 +127,12 @@ function checkForGenresItems() {
                 }
                 playPauseButton.setAttribute("src", "themes/" + preferredTheme + "/icons/play-player.png");
                 stopMusic();
+                let checkIfWindowForDeletingSongsIsOpen = document.querySelectorAll('.remove-songs-container-shown');
+                if(checkIfWindowForDeletingSongsIsOpen.length != 0){
+                    deleteAllSongsForDeleting();
+                    createCheckersForDeletingSongs();
+                }
+                
             }
 
             document.getElementsByClassName("playlist-box")[inFocusNow].setAttribute("id", "focus");
