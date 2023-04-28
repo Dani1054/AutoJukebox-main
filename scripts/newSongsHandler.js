@@ -50,11 +50,11 @@ document.getElementsByClassName("button-for-adding-songs")[0].addEventListener("
         openSongsContainerForAdding();
     }
 
-    if((document.getElementsByClassName("remove-songs-container-shown")[0])){
+    if ((document.getElementsByClassName("remove-songs-container-shown")[0])) {
         closeSongsContainerForRemovingSongs();
     }
 
-    if(document.getElementsByClassName("remove-playlist-container-shown")[0]){
+    if (document.getElementsByClassName("remove-playlist-container-shown")[0]) {
         closeSongsContainerForRemovingPlaylist();
     }
 });
@@ -145,19 +145,19 @@ function uncheckCheckers(i) {
     checkingCheckCurrentCheck.checked = false;
 }
 
-function createSongsInDragAndDrop(i) {
+function createSongsInDragAndDrop(y) {
     let newDivElementSongs = document.createElement("div");
     newDivElementSongs.className = "song-1";
     newDivElementSongs.setAttribute('draggable', true);
 
     let newSpanElement = document.createElement("span");
     newSpanElement.className = "secondary-song-title text-font-default";
-    newSpanElement.textContent = songDatabase[i].nameOfSong;
+    newSpanElement.textContent = songDatabase[y].nameOfSong;
 
 
     let newArtistSpan = document.createElement("span");
     newArtistSpan.className = "performer text-font-default";
-    newArtistSpan.textContent = songDatabase[i].nameOfPerformer;
+    newArtistSpan.textContent = songDatabase[y].nameOfPerformer;
 
     let pictureNew = document.createElement("img");
     pictureNew.src = "themes/" + preferredTheme + "/icons/play-button.png";
@@ -202,14 +202,14 @@ function closeSongsContainerForRemovingSongs() {
 let checkForOpeningWindowForDeleting = false;
 
 function openSongsContainerForRemovingSongs() {
-    if((document.getElementsByClassName("remove-playlists-container-shown")[0])){
+    if ((document.getElementsByClassName("remove-playlists-container-shown")[0])) {
         closeSongsContainerForRemovingPlaylist();
     }
 
-    if(document.getElementsByClassName("add-songs-container-shown")[0]){
+    if (document.getElementsByClassName("add-songs-container-shown")[0]) {
         closeSongsContainerForAdding();
     }
-    
+
     document.getElementsByClassName("remove-songs-container")[0].className = "remove-songs-container-shown";
     let checkForCheckersToStopDoubling = document.querySelectorAll('.check-to-delete');
     if (!checkForOpeningWindowForDeleting) {
@@ -258,10 +258,11 @@ function createCheckersForDeletingSongs() {
             let parentElementButton = document.getElementsByClassName("remove-songs-container-shown")[0];
             parentElementButton.appendChild(buttonDiv);
             buttonDiv.appendChild(textInButtonDiv);
+            checkButtonForDeletingSongs();
             buttonDiv.addEventListener('click', function () {
                 checkButtonForDeletingSongs();
                 deleteAllSongsInDragAndDrop();
-
+                activateDragAndDrop()
             });
         }
 
@@ -287,10 +288,30 @@ function removeErrorMessageInSongsForDelete() {
 }
 
 function checkButtonForDeletingSongs() {
+    playlist0 = [];              
+    scraperForSongsToFillPlaylist0();
+    let nameOfSongForDeleting;
     for (let i = 0; i < playlist0.length; i++) {
-        let checkerForSongToDelete = document.getElementsByClassName("check-to-delete")[i];
-        if (checkerForSongToDelete.checked == true) {
+        checkerForSongToDelete = document.getElementsByClassName("check-to-delete")[i];
+        if (checkerForSongToDelete.checked === true) {
+            nameOfSongForDeleting = playlist0[i].nameOfSong;
             playlist0.splice(i, 1);
+            removePlaylistFromPlaylistArrInDataBase(nameOfSongForDeleting);
+            uncheckCheckersForDeletingNow(i);
+            i--;
+        }
+    }
+    counterForCheckedItems = 0;
+}
+
+function removePlaylistFromPlaylistArrInDataBase(nameOfSongForDeletingSong) {
+    for (let i = 0; i < songDatabase.length; i++) {
+        if (songDatabase[i].nameOfSong == nameOfSongForDeletingSong) {
+            for (let z = 0; z < songDatabase[i].playlist.length; z++) {
+                if (songDatabase[i].playlist[z] == nameOfPlaylistOpen) {
+                    songDatabase[i].playlist.splice(z, 1);
+                }
+            }
         }
     }
 }
@@ -298,6 +319,8 @@ function checkButtonForDeletingSongs() {
 let buttonForDeletingSongs = document.getElementsByClassName("button-checklist-remove")[0];
 
 function deleteAllSongsInDragAndDrop() {
+    console.log(playlist0);
+    uncheckCheckersForDeleting();
     let allSongsForRemoving = document.querySelectorAll('.song-1');
     let checkingCheckCurrentCheck = document.querySelectorAll('.check-to-delete');
     let deleteSpanSong = document.querySelectorAll(".span-song-for-delete");
@@ -306,29 +329,41 @@ function deleteAllSongsInDragAndDrop() {
     });
     for (let i = 0; i < playlist0.length; i++) {
         for (let z = 0; z < songDatabase.length; z++) {
-            if (songDatabase[z].nameOfSong == playlist0[i].nameOfSong) {
+            if (songDatabase[z].nameOfSong === playlist0[i].nameOfSong) {
                 createSongsInDragAndDrop(z);
-                uncheckCheckersForDeleting(i);
+                //uncheckCheckersForDeleting();
+                console.log(playlist0)
             }
         }
     }
-    if(checkingCheckCurrentCheck.length == 1){
-        if(checkingCheckCurrentCheck[0].checked == true){
+    if (checkingCheckCurrentCheck.length == 1) {
+        if (checkingCheckCurrentCheck[0].checked == true) {
             checkingCheckCurrentCheck[0].remove();
             deleteSpanSong[0].remove();
         }
     }
 }
 
-function uncheckCheckersForDeleting(i) {
+function uncheckCheckersForDeleting() {
     let checkingCheckCurrentCheck = document.querySelectorAll('.check-to-delete');
     let deleteSpanSong = document.querySelectorAll(".span-song-for-delete");
     for (let i = 0; i < checkingCheckCurrentCheck.length; i++) {
         if (checkingCheckCurrentCheck[i].checked == true) {
             checkingCheckCurrentCheck[i].remove();
             deleteSpanSong[i].remove();
-            console.log("MOLIM");
         }
+    }
+}
+
+function uncheckCheckersForDeletingNow(y) {
+    let checkingCheckCurrentCheck = document.querySelectorAll('.check-to-delete');
+    let deleteSpanSong = document.querySelectorAll('.span-song-for-delete');
+    if (checkingCheckCurrentCheck.length > y) {
+        checkingCheckCurrentCheck[y].remove();
+    }
+
+    if (deleteSpanSong.length > y) {
+        deleteSpanSong[y].remove();
     }
 }
 
@@ -365,11 +400,11 @@ buttonForRemovingPlaylists.addEventListener('click', function () {
         createCheckersForRemovingPlaylists();
     }
 
-    if((document.getElementsByClassName("remove-songs-container-shown")[0])){
+    if ((document.getElementsByClassName("remove-songs-container-shown")[0])) {
         closeSongsContainerForRemovingSongs();
     }
 
-    if(document.getElementsByClassName("add-songs-container-shown")[0]){
+    if (document.getElementsByClassName("add-songs-container-shown")[0]) {
         closeSongsContainerForAdding();
     }
 });
@@ -420,32 +455,34 @@ function createCheckersForRemovingPlaylists() {
         parentElementButton.appendChild(buttonDiv);
         buttonDiv.appendChild(textInButtonDiv);
         buttonDiv.addEventListener('click', function forDeletingPlaylistsAfterPressOfButton() {
-            
+
             uncheckCheckersForDeletingPlaylistAndChangePlaylist();
             deleteAllPlaylists();
             createGenresItems();
             let playlistBox = document.getElementsByClassName("playlist-box")[0];
-            if(playlistBox){
+            if (playlistBox) {
                 document.getElementsByClassName("playlist-box")[inFocusNow].setAttribute("id", "focus");
             }
-            
+
             checkForGenresItems();
-            let allSongsForRemoving = document.querySelectorAll('.song-1');
             // allSongsForRemoving.forEach(songBox => {
             //     songBox.remove();
             // });
             // playlist0 = [];
-            removeAllSongs();
-            
+            let allSongsForRemoving = document.querySelectorAll('.song-1');
+            allSongsForRemoving.forEach(songBox => {
+                songBox.remove();
+            });
+
             nameOfPlaylist = genresList[inFocusNow];
             generateSongsByPlaylist();
             scraperForSongsToFillPlaylist0();
             playingElementCheck();
             playingIndex = 0;
-            if(playlist0.length != 0){
+            if (playlist0.length != 0) {
                 changeTitle();
             }
-            
+
         });
     }
     if (getNumberOfPlaylists.length == 0 && getNumberOfErrorMessagesForNoPlaylists.length == 0) {
@@ -494,7 +531,10 @@ function uncheckCheckersForDeletingPlaylistAndChangePlaylist() {
             genresList.splice(i, 1);
 
             document.getElementsByClassName("playlist-box")[inFocusNow].removeAttribute("id");
-            removeAllSongs();
+            let allSongsForRemoving = document.querySelectorAll('.song-1');
+            allSongsForRemoving.forEach(songBox => {
+                songBox.remove();
+            });
             if (i != (checkingCheckCurrentCheck.length - 1)) {
                 inFocusNow = i;
                 //console.log(i);
@@ -518,10 +558,10 @@ function uncheckCheckersForDeletingPlaylistAndChangePlaylist() {
     }
 }
 
-function deletePlaylistFromPlaylistArrayFromJsonDataOfSong(nameOfPlaylistToDelete){
-    for(let i = 0; i < songDatabase.length ; i++){
-        for(let z = 0; z < songDatabase[i].playlist.length ; z++){
-            if(songDatabase[i].playlist[z] == nameOfPlaylistToDelete){
+function deletePlaylistFromPlaylistArrayFromJsonDataOfSong(nameOfPlaylistToDelete) {
+    for (let i = 0; i < songDatabase.length; i++) {
+        for (let z = 0; z < songDatabase[i].playlist.length; z++) {
+            if (songDatabase[i].playlist[z] == nameOfPlaylistToDelete) {
                 songDatabase[i].playlist.splice(z, 1);
             }
         }
