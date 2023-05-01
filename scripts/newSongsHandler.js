@@ -306,18 +306,22 @@ function removeErrorMessageInSongsForDelete() {
     spanForRemoval.remove();
     boolForCheckingToNotSpawnButton = true;
 }
+let nameOfSongForDeleting;
 
 function checkButtonForDeletingSongs() {
     playlist0 = [];
     scraperForSongsToFillPlaylist0();
-    let nameOfSongForDeleting;
     for (let i = 0; i < playlist0.length; i++) {
         checkerForSongToDelete = document.getElementsByClassName("check-to-delete")[i];
         if (checkerForSongToDelete.checked === true) {
             nameOfSongForDeleting = playlist0[i].nameOfSong;
+            
+            checkIfIsSongPlayingAndDeleted();
             playlist0.splice(i, 1);
+            
             removePlaylistFromPlaylistArrInDataBase(nameOfSongForDeleting);
             uncheckCheckersForDeletingNow(i);
+            playingElementCheck();
             i--;
         }
     }
@@ -443,7 +447,6 @@ document.getElementsByClassName("close-songs")[2].addEventListener("click", clos
 function createCheckersForRemovingPlaylists() {
     let numberOfPlaylistsFromMenu = document.querySelectorAll('.playlist-item');
     for (let i = 0; i < numberOfPlaylistsFromMenu.length; i++) {
-        console.log("HALO");
         let newDivElement = document.createElement("div");
 
         let newSpanElement = document.createElement("span");
@@ -460,6 +463,7 @@ function createCheckersForRemovingPlaylists() {
         newDivElement.appendChild(newInputElement);
         newDivElement.appendChild(newSpanElement);
     }
+
     let checkForNumberOfButtonsForSubmitToDeletePlaylist = document.querySelectorAll('.button-checklist-remove-playlst');
     let getNumberOfPlaylists = document.querySelectorAll('.playlist-box');
     let getNumberOfErrorMessagesForNoPlaylists = document.querySelectorAll('.span-for-error-delete-playlists')
@@ -479,6 +483,7 @@ function createCheckersForRemovingPlaylists() {
             uncheckCheckersForDeletingPlaylistAndChangePlaylist();
             deleteAllPlaylists();
             createGenresItems();
+            
             let playlistBox = document.getElementsByClassName("playlist-box")[0];
             if (playlistBox) {
                 document.getElementsByClassName("playlist-box")[inFocusNow].setAttribute("id", "focus");
@@ -489,17 +494,15 @@ function createCheckersForRemovingPlaylists() {
             allSongsForRemoving.forEach(songBox => {
                 songBox.remove();
             });
-
+            //removePlaylistFromPlaylistArrInDataBase(nameOfSongForDeleting);
             nameOfPlaylist = genresList[inFocusNow];
             generateSongsByPlaylist();
-            scraperForSongsToFillPlaylist0();
+            scraperForSongsToFillPlaylist0NewVersion()
             playingElementCheck();
             playingIndex = 0;
-            if (playlist0.length != 0) {
-                changeTitle();
-            }
+            changeTitleForDeletingPlaylist();
             callErrorMessageIfYouDeletedAllPlaylist();
-
+            
         });
     }
     if (getNumberOfPlaylists.length == 0 && getNumberOfErrorMessagesForNoPlaylists.length == 0) {
@@ -550,6 +553,7 @@ function uncheckCheckersForDeletingPlaylistAndChangePlaylist() {
     let deleteSpanSong = document.querySelectorAll(".span-playlist-for-delete");
     for (let i = 0; i < checkingCheckCurrentCheck.length; i++) {
         if (checkingCheckCurrentCheck[i].checked == true) {
+            
             checkingCheckCurrentCheck[i].remove();
             deleteSpanSong[i].remove();
             genresList.splice(i, 1);
@@ -576,8 +580,9 @@ function uncheckCheckersForDeletingPlaylistAndChangePlaylist() {
             }
             playPauseButton.setAttribute("src", "themes/" + preferredTheme + "/icons/play-player.png");
             stopMusic();
-
+            
             document.getElementsByClassName("playlist-box")[inFocusNow].setAttribute("id", "focus");
+            //changeTitleForDeletingPlaylist();
         }
     }
 }

@@ -83,6 +83,44 @@ function activatePreviousAndNextSongButton() {
 
 }
 
+function checkIfIsSongPlayingAndDeleted() {
+  //playingElementCheck();
+  let songNowPlaying = playlist0[playingIndex].nameOfSong;
+  console.log(songNowPlaying);
+  if (songNowPlaying == nameOfSongForDeleting && playlist0.length != 0) {
+    
+    playPauseButton.setAttribute("src", "themes/" + preferredTheme + "/icons/play-player.png");
+    if (playlist0.length > 1) {
+      stopMusic();
+      playingIndex++;
+      let music = playlist0[playingIndex].source;
+      playerAudioElement.pause();
+      playerAudioElement.setAttribute("src", music);
+      playerAudioElement.load();
+      playingIndex--;
+    } else {
+      console.log("HALO");
+      playerAudioElement.pause();
+      makeControlsNone();
+      removeEventsFromControlsAndButtons();
+      document.getElementById("duration-slider").value = 0;
+    }
+
+  }
+}
+
+
+function removeEventsFromControlsAndButtons() {
+  const nextSongButton = document.getElementsByClassName("next")[0];
+  const previousSongButton = document.getElementsByClassName("previous")[0];
+  const shuffleButton = document.getElementsByClassName("shuffle")[0];
+  const repeatButton = document.getElementsByClassName("repeat")[0];
+  repeatButton.removeEventListener("click", repeat);
+  shuffleButton.removeEventListener("click", shuffle);
+  nextSongButton.removeEventListener("click", nextSong);
+  previousSongButton.removeEventListener("click", previousSong);
+  playPauseButton.removeEventListener('click', playPause);
+}
 function nextSong() {
   for (let i = 0; i < playlist0.length; i++) {
     if (playingIndex == i) {

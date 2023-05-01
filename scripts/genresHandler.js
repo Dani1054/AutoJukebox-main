@@ -109,11 +109,13 @@ let nameOfPlaylist;
 let inFocusNow = 0;
 
 function checkForGenresItems() {
+    
     let numOfGenres = document.querySelectorAll('.playlist-box');
     for (let i = 0; i < numOfGenres.length; i++) {
         numOfGenres[i].addEventListener("click", () => {
-
+               
             if (i != inFocusNow) {
+                
                 document.getElementsByClassName("playlist-box")[inFocusNow].removeAttribute("id");
                 removeAllSongs();
                 inFocusNow = i;
@@ -132,9 +134,10 @@ function checkForGenresItems() {
                     deleteAllSongsForDeleting();
                     createCheckersForDeletingSongs();
                 }
-                
+                scraperForSongsToFillPlaylist0NewVersion();
+                changeTitleForDeletingPlaylist();
             }
-
+            
             document.getElementsByClassName("playlist-box")[inFocusNow].setAttribute("id", "focus");
         });
 
@@ -156,7 +159,8 @@ function generateSongsByPlaylist() {
             }
         }
     }
-    scraperForSongsToFillPlaylist0();
+    //scraperForSongsToFillPlaylist0();
+    scraperForSongsToFillPlaylist0NewVersion();
 }
 
 function removeAllSongs() {
@@ -174,6 +178,21 @@ function scraperForSongsToFillPlaylist0() {
         for (let z = 0; z < songDatabase.length; z++) {
             if (document.getElementsByClassName("secondary-song-title")[i].textContent == songDatabase[z].nameOfSong) {
                 playlist0.push(songDatabase[z]);
+            }
+        }
+
+    }
+}
+
+function scraperForSongsToFillPlaylist0NewVersion() {
+    playlist0 = [];
+    let playlistNowDownList = document.querySelectorAll('.playlist-box');
+    for (let i = 0; i < songDatabase.length; i++) {
+        for (let z = 0; z < playlistNowDownList.length; z++) {
+            for(let y = 0; y < songDatabase[i].playlist.length; y++){
+                if (nameOfPlaylist == songDatabase[i].playlist[y]) {
+                    playlist0.push(songDatabase[i]);
+                }
             }
         }
 
