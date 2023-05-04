@@ -53,19 +53,6 @@ function changeTitle() {
     document.getElementsByClassName("performer-name-title")[0].textContent = performerNameTitle;
 }
 
-function changeTitleForDeletingPlaylist() {
-    if (playlist0.length == 0) {
-        makeControlsNoneAlways();
-    } else {
-        console.log("NOT OK");
-        console.log(songDatabase);
-        let playingNowSongName = playlist0[playingIndex].nameOfSong;
-        document.getElementsByClassName("performer-playing")[0].textContent = playingNowSongName;
-        let performerNameTitle = playlist0[playingIndex].nameOfPerformer;
-        document.getElementsByClassName("performer-name-title")[0].textContent = performerNameTitle;
-        
-    }
-}
 
 makeControlsNone();
 function makeControlsNone() {
@@ -78,13 +65,7 @@ function makeControlsNone() {
     }
 }
 
-function makeControlsNoneAlways() {
-    //console.log("HALO");
-    document.getElementsByClassName("performer-playing")[0].textContent = 'None';
-    document.getElementsByClassName("performer-name-title")[0].textContent = "None";
-    document.getElementsByClassName("song-duration")[0].textContent = "0:00";
-    document.getElementsByClassName("current-time")[0].textContent = "0:00";
-}
+
 
 function setLengthSlider() {
     let actualSliderLength = ((playerAudioElement.currentTime / playerAudioElement.duration) * 100).toString();
@@ -133,7 +114,7 @@ let curentTimeOfSong = playerAudioElement.currentTime;
 function newConvertSecondsToMinutesForNoneSongs() {
     if (playerAudioElement && playlist0.length != 0) {
         convertSecondsToMinutes();
-    } else {
+    } else{
         document.getElementsByClassName("song-duration")[0].textContent = "0:00";
         document.getElementsByClassName("current-time")[0].textContent = "0:00";
     }

@@ -48,53 +48,6 @@ function activateDragAndDrop() {
   }
 }
 
-function getClicksAndPlayMusicFromPlayButtons() {
-  let secondaryPlayButtons = document.querySelectorAll('.play-button');
-  let oldTemporary;
-
-  secondaryPlayButtons.forEach((element, index) => {
-    element.addEventListener('click', () => {
-      let temporary = index;
-      let temporaryName = document.getElementsByClassName("secondary-song-title")[temporary].textContent;
-      counterForClickingOnPlayButton++;
-
-      for (let i = 0; i < playlist0.length; i++) {
-        if (playlist0[i].nameOfSong == temporaryName) {
-          console.log(playlist0[i].nameOfSong);
-          playingIndex = i;
-        }
-      }
-
-      console.log(counterForClickingOnPlayButton);
-      console.log(playingIndex);
-      console.log(temporary);
-      //playingIndex = temporary;
-
-      const smallPlayPauseButton = document.getElementsByClassName("play-button")[temporary];
-      let imageSourceSmall = smallPlayPauseButton.getAttribute("src");
-      let music = playlist0[playingIndex].source;
-      console.log(music);
-      if (/*counterForClickingOnPlayButton == (temporary+1) &&*/ oldTemporary != temporary) {
-        playerAudioElement.pause();
-        playerAudioElement.setAttribute("src", music);
-        playerAudioElement.load();
-        playerAudioElement.addEventListener('canplaythrough', () => {
-          playerAudioElement.play();
-          playPauseButton.setAttribute("src", "themes/" + preferredTheme + "/icons/pause-player.png");
-          counterForClickingOnPlayButton = 0;
-        }, { once: true });
-      }
-
-      changeTitle();
-      checkIfSongEnded();
-      playingElementCheck();
-      oldTemporary = temporary;
-
-    });
-  });
-
-}
-
 function orderOfSongsInDragAndDrop() {
   playingNowSongName = playlist0[playingIndex].nameOfSong;
   let numberOfDraggableItems = document.querySelectorAll('.song-1');
